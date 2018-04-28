@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/gearnode/csp-handler/cmd"
+	"github.com/jobteaser/csp-handler/cmd"
 )
 
 func main() {

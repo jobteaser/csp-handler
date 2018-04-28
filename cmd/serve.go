@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/gearnode/csp-handler/server"
+	"github.com/jobteaser/csp-handler/server"
 	"github.com/spf13/cobra"
 )
 
