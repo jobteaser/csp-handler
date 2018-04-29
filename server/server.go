@@ -48,9 +48,12 @@ func (a *App) Run(addr string) {
 
 func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/report", a.cspHandler).Methods("POST")
+	a.Router.HandleFunc("/ping", a.pingHandler).Methods("GET")
 }
 
-func init() {
+func (*App) pingHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("pong"))
 }
 
 func (a *App) cspHandler(w http.ResponseWriter, r *http.Request) {

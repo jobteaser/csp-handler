@@ -28,6 +28,13 @@ func executeRequest(req *http.Request) *httptest.ResponseRecorder {
 	return rr
 }
 
+func TestHelperPing(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/ping", nil)
+	response := executeRequest(req)
+	assert.Equal(t, http.StatusOK, response.Code)
+	assert.Equal(t, response.Body.String(), "pong")
+}
+
 func TestHelperNotFound(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/", nil)
 	response := executeRequest(req)
