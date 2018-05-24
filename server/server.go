@@ -2,12 +2,22 @@ package server
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/newrelic/go-agent"
 	"github.com/sirupsen/logrus"
 
 	"encoding/json"
 	"net/http"
 	"os"
 )
+
+var (
+	app newrelic.Application
+)
+
+func init() {
+	config := newrelic.NewConfig(os.Getenv("APP_NAME"), os.Getenv("NEWRELIC_KEY"))
+	app, _ = newrelic.NewApplication(config)
+}
 
 // CSP represent the root node of the CSP violation event.
 type CSP struct {
@@ -47,8 +57,8 @@ func (a *App) Run(addr string) {
 }
 
 func (a *App) initializeRoutes() {
-	a.Router.HandleFunc("/report", a.cspHandler).Methods("POST")
-	a.Router.HandleFunc("/ping", a.pingHandler).Methods("GET")
+	a.Router.HandleFunc(newrelic.WrapHandleFunc(app, "/report", a.cspHandler)).Methods("POST")
+	a.Router.HandleFunc(newrelic.WrapHandleFunc(app, "/ping", a.pingHandler)).Methods("GET")
 }
 
 func (*App) pingHandler(w http.ResponseWriter, r *http.Request) {
