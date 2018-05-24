@@ -67,6 +67,11 @@ HTTP/1.1 500 INTERNAL SERVER ERROR
 
 ```
 
+### Configuration
+
+- `APP_NAME` used to name the application in newrelic
+- `NEWRELIC_KEY` newrelic api key
+
 ## Deploy
 
 ### Kubernetes
