@@ -12,11 +12,13 @@ import (
 
 var (
 	app newrelic.Application
+	err error
 )
 
 func init() {
 	config := newrelic.NewConfig(os.Getenv("APP_NAME"), os.Getenv("NEWRELIC_KEY"))
-	app, _ = newrelic.NewApplication(config)
+	app, err = newrelic.NewApplication(config)
+	logrus.Error(err)
 }
 
 // CSP represent the root node of the CSP violation event.
